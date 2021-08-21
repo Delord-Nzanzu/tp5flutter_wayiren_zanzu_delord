@@ -1,0 +1,32 @@
+
+<?php
+include('./connexion.php');
+?>
+<?php 
+//SELECT id,nom,postnom,adresse,contact,mail,pass FROM `tetudiant` WHERE 1
+
+			$nom=htmlspecialchars($_POST['nom']);	
+			$postnom=htmlspecialchars($_POST['postnom']);
+            $prenom=htmlspecialchars($_POST['prenom']);
+            $sexe=htmlspecialchars($_POST['sexe']);	
+			$adresse=htmlspecialchars($_POST['adresse']);			
+			$contact=htmlspecialchars($_POST['contact']);	
+			$mail=htmlspecialchars($_POST['mail']);	
+            $username=htmlspecialchars($_POST['username']);
+			$pass=htmlspecialchars($_POST['pass']);			
+
+			$stmt = $dbConnection->prepare("INSERT INTO tetudiant (nom,postnom,prenom,sexe,adresse,contact,mail,username,pass) VALUES (:nom,:postnom,:prenom,:sexe,:adresse,:contact,:mail,:username,:pass)");
+			        $stmt->bindParam("nom", $nom,PDO::PARAM_STR);
+			        $stmt->bindParam("postnom", $postnom,PDO::PARAM_STR);
+                    $stmt->bindParam("prenom", $prenom,PDO::PARAM_STR);
+                    $stmt->bindParam("sexe", $sexe,PDO::PARAM_STR);
+					$stmt->bindParam("adresse", $adresse,PDO::PARAM_STR);					
+					$stmt->bindParam("contact", $contact,PDO::PARAM_STR);	
+					$stmt->bindParam("mail", $mail,PDO::PARAM_STR);	
+                    $stmt->bindParam("username", $username,PDO::PARAM_STR);
+					$stmt->bindParam("pass", $pass,PDO::PARAM_STR);	
+          			$stmt->execute();
+          			$status= 'Enregistrement ressie';
+          			echo json_encode(array("response"=>$status));
+   	
+ ?>
